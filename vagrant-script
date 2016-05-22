@@ -1,0 +1,10 @@
+  config.vm.provision "shell", inline: <<-SCRIPT
+    if [ ! -f /tmp/pg_restored ]
+    then
+      sudo apt-get install -y postgresql-client-common postgresql-client-9.3
+      cp /vagrant/restore_pg.sh /tmp/restore_pg.sh
+      chmod +x /tmp/restore_pg.sh
+      bash /tmp/restore_pg.sh /backups
+      touch /tmp/pg_restored
+    fi
+  SCRIPT
